@@ -26,5 +26,11 @@
   Demo可以通过vs2015编译通过
   
   ![image](https://user-images.githubusercontent.com/84183800/127163222-abcec2e6-4674-471f-9b72-76ad7bd9fb0b.png)
-
+  
+# 使用协议：what?
+  鉴于在天朝神马协议都被无视，甚至很多大公司都不遵守，故索性采用了【DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE】协议~O(∩_∩)O~
+  
+# 使用案例
+1. 2015年《深圳市聚橙网络技术有限公司》聚橙票务系统服务器间通信协议。
+2. 2020年《深圳齐心好视通云计算有限公司》会议系统部分服务通信协议。
 
