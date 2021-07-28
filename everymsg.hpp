@@ -555,7 +555,7 @@ friend EveryMsg& operator >> (EveryMsg& p,classname& i) \
 
 //重定义map类; 作为序列化map类型的数据结构
 #define DEFINE_MAP(type, classname, baseclass)  \
-class classname : public map<type, baseclass*>  \
+class classname : public std::map<type, baseclass*>\
 {                                               \
 public:                                         \
     classname(bool bClearMem = true)            \
@@ -642,7 +642,7 @@ public:                                         \
 
 //重定义vector类; 作为序列化vector类型的数据结构
 #define DEFINE_VECTOR(classname,baseclass)      \
-class classname : public vector<baseclass*>     \
+class classname : public std::vector<baseclass*>\
 {                                               \
 public:                                         \
     classname(bool bClearMem = true)            \
@@ -705,7 +705,7 @@ public:                                         \
 
 //重定义list类; 作为序列化list类型的数据结构
 #define DEFINE_LIST(classname,baseclass)        \
-class classname : public list<baseclass*>       \
+class classname : public std::list<baseclass*>  \
 {                                               \
 public:                                         \
     classname(bool bClearMem = true)            \
