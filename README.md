@@ -35,7 +35,9 @@
   
   
 # 使用协议：what?
-  鉴于在天朝神马协议都被无视，甚至很多大公司都不遵守，故索性采用了【DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE】协议~O(∩_∩)O~
+  鉴于在天朝神马协议都被无视，甚至很多大公司都不遵守，故索性采用了自定义协议~O(∩_∩)O~
+  
+  【Do what the fuck you want to public lincese】
   
   
 # 使用案例
