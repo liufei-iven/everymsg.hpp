@@ -1,11 +1,11 @@
 /*****************************************************************************************************************************
-*   Copyright(c) 2016-2020  è‡ªç”±äºº -- åˆ˜é£                                                                                   *
+*   Copyright(c) 2016-2020  ×ÔÓÉÈË -- Áõ·É                                                                                   *
 *   All rights reserved.                                                                                                     *
 *                                                                                                                            *
-*  æ–‡  ä»¶: sbuffer.hpp   create by liufei    2015.5.20                                                                       *
-*  åŠŸ  èƒ½: èªæ˜çš„ç¼“å†²åŒº;                                                                                                     *
-*  è¯´  æ˜: æ— ;                                                                                                               *
-*  å¤‡  æ³¨: æ— ;                                                                                                               *
+*  ÎÄ  ¼ş: sbuffer.hpp   create by liufei    2015.5.20                                                                       *
+*  ¹¦  ÄÜ: ´ÏÃ÷µÄ»º³åÇø;                                                                                                     *
+*  Ëµ  Ã÷: ÎŞ;                                                                                                               *
+*  ±¸  ×¢: ÎŞ;                                                                                                               *
 *                                                                                                                            *
 ******************************************************************************************************************************/
 
@@ -13,59 +13,59 @@
 
 #include <iostream>
 
-#define SBUFFER_DEF_SIZE  512           //é»˜è®¤ç¼“å†²åŒºå¤§å°
-#define SBUFFER_MAX_SIZE  1024 * 1024 * 64  //æœ€å¤§æ”¯æŒ64M
+#define SBUFFER_DEF_SIZE  512           //Ä¬ÈÏ»º³åÇø´óĞ¡
+#define SBUFFER_MAX_SIZE  1024 * 1024 * 64  //×î´óÖ§³Ö64M
 
 
 
 class SBuffer
 {
 public:
-	virtual inline ~SBuffer();//ææ„
+	virtual inline ~SBuffer();//Îö¹¹
 
-	inline SBuffer(unsigned int nLen = 0);//æ„é€ 
+	inline SBuffer(unsigned int nLen = 0);//¹¹Ôì
 
-	inline SBuffer(const SBuffer& tBuffer);//æ‹·è´æ„é€ 
+	inline SBuffer(const SBuffer& tBuffer);//¿½±´¹¹Ôì
 
-	inline SBuffer(SBuffer&& tBuffer);//ç§»åŠ¨æ„é€ 
-					  //ç§»åŠ¨å°±æ„å‘³ç€ä¿®æ”¹,æ‰€ä»¥ä¸åŠ const
-					  //å½“å‘ç°æ˜¯å³å€¼æ—¶ï¼Œä¼šä¼˜å…ˆç»‘å®šç§»åŠ¨æ„é€ å‡½æ•°
+	inline SBuffer(SBuffer&& tBuffer);//ÒÆ¶¯¹¹Ôì
+									  //ÒÆ¶¯¾ÍÒâÎ¶×ÅĞŞ¸Ä,ËùÒÔ²»¼Óconst
+									  //µ±·¢ÏÖÊÇÓÒÖµÊ±£¬»áÓÅÏÈ°ó¶¨ÒÆ¶¯¹¹Ôìº¯Êı
 
-	inline SBuffer& operator = (const SBuffer& tBuffer);//æ‹·è´èµ‹å€¼
+	inline SBuffer& operator = (const SBuffer& tBuffer);//¿½±´¸³Öµ
 
-	inline SBuffer& operator = (SBuffer&& tBuffer);//ç§»åŠ¨èµ‹å€¼
+	inline SBuffer& operator = (SBuffer&& tBuffer);//ÒÆ¶¯¸³Öµ
 
-	//é‡ç½®æ•°æ®
+												   //ÖØÖÃÊı¾İ
 	inline bool ReSetData(const char* pData, unsigned int nLen);
 
-	//è¿½åŠ æ•°æ®; å½“pDataä¸ºNULLæ—¶æ•°æ®çš„é•¿åº¦ä¾ç„¶ä¼šé€’å¢
+	//×·¼ÓÊı¾İ; µ±pDataÎªNULLÊ±Êı¾İµÄ³¤¶ÈÒÀÈ»»áµİÔö
 	inline bool AppendData(const char* pData, unsigned int nLen);
 
-	//åˆ é™¤æ•°æ®;
+	//É¾³ıÊı¾İ;
 	inline bool EraseData(unsigned int nBeginPos, unsigned int nCount);
 
-	//å¢åŠ Bufferçš„é•¿åº¦; å¦‚æœå·²æœ‰æ•°æ®,æ•°æ®ä¸ä¼šä¸¢å¤±
+	//Ôö¼ÓBufferµÄ³¤¶È; Èç¹ûÒÑÓĞÊı¾İ,Êı¾İ²»»á¶ªÊ§
 	inline bool AddBufferLen(unsigned int nAddLen = 128);
 
-	//è·å–æ•°æ®; nBeginPos: æ•°æ®çš„å¼€å§‹ä½ç½®; bIsCopy:æ˜¯å¦newè¿”å›
+	//»ñÈ¡Êı¾İ; nBeginPos: Êı¾İµÄ¿ªÊ¼Î»ÖÃ; bIsCopy:ÊÇ·ñnew·µ»Ø
 	inline char* GetData(unsigned int nBeginPos = 0, bool bIsNew = false) const;
 
-	//è·å–æ•°æ®é•¿åº¦
+	//»ñÈ¡Êı¾İ³¤¶È
 	inline unsigned int GetDataLen() const { return m_nDataLen; }
 
-	//è·å–Buf; nBeginPos: Bufçš„å¼€å§‹ä½ç½®
+	//»ñÈ¡Buf; nBeginPos: BufµÄ¿ªÊ¼Î»ÖÃ
 	inline char* GetBuf(unsigned int nBeginPos = 0) const { return m_pBuf + nBeginPos; }
 
-	//è·å–Bufé•¿åº¦
+	//»ñÈ¡Buf³¤¶È
 	inline unsigned int GetBufLen() const { return m_nLen; }
 
-	//æ¸…é™¤æ•°æ®
+	//Çå³ıÊı¾İ
 	inline void ClearData() { SetDataLen(); }
 
-	//è®¾ç½®æ•°æ®é•¿åº¦, é»˜è®¤æ¸…é™¤æ•°æ®
+	//ÉèÖÃÊı¾İ³¤¶È, Ä¬ÈÏÇå³ıÊı¾İ
 	inline void SetDataLen(unsigned int nLen = 0);
 
-	//æ˜¯å¦è‡ªåŠ¨é‡Šæ”¾å†…å­˜
+	//ÊÇ·ñ×Ô¶¯ÊÍ·ÅÄÚ´æ
 	inline void AutoFreeMem(bool bisAuto);
 
 	union ParamEx
@@ -75,15 +75,15 @@ public:
 		unsigned long unNum;
 	};
 
-	ParamEx         m_ParamEx;    //æ‰©å±•å‚æ•°
+	ParamEx         m_ParamEx;    //À©Õ¹²ÎÊı
 
 protected:
 
 private:
-	char*           m_pBuf;       //ç¼“å†²åŒº;
-	unsigned int    m_nLen;       //ç¼“å†²åŒºé•¿åº¦;
-	unsigned int    m_nDataLen;   //æ•°æ®é•¿åº¦;
-	bool            m_bIsFree;    //æ˜¯å¦é‡Šæ”¾å†…å­˜;
+	char*           m_pBuf;       //»º³åÇø;
+	unsigned int    m_nLen;       //»º³åÇø³¤¶È;
+	unsigned int    m_nDataLen;   //Êı¾İ³¤¶È;
+	bool            m_bIsFree;    //ÊÇ·ñÊÍ·ÅÄÚ´æ;
 };
 
 inline SBuffer::SBuffer(unsigned int nLen)
@@ -180,11 +180,11 @@ inline bool SBuffer::ReSetData(const char* pData, unsigned int nLen)
 	{
 		return false;
 	}
-	//é‡ç½®åŸå…ˆæ•°æ®é•¿åº¦
+	//ÖØÖÃÔ­ÏÈÊı¾İ³¤¶È
 	m_nDataLen = 0;
 
-	//ä¿è¯Bufé•¿åº¦è¶³å¤Ÿ
-	AddBufferLen(nLen); //å¢åŠ Bufferå®šä¼šæˆåŠŸ
+	//±£Ö¤Buf³¤¶È×ã¹»
+	AddBufferLen(nLen); //Ôö¼ÓBuffer¶¨»á³É¹¦
 	memcpy(m_pBuf, pData, nLen);
 
 	m_nDataLen = nLen;
@@ -209,19 +209,19 @@ inline bool SBuffer::EraseData(unsigned int nBeginPos, unsigned int nCount)
 {
 	if (m_nDataLen <= 0)
 	{
-		//æ²¡æœ‰æ•°æ®
+		//Ã»ÓĞÊı¾İ
 		return false;
 	}
 
 	if (nBeginPos >= m_nDataLen || nCount > m_nDataLen)
 	{
-		//åæ ‡æˆ–è€…é•¿åº¦è¶Šç•Œ
+		//×ø±ê»òÕß³¤¶ÈÔ½½ç
 		return false;
 	}
 
 	if (nBeginPos > 0 && nBeginPos + nCount >= m_nDataLen)
 	{
-		//å¦‚æœæ˜¯å…¨åˆ é™¤, nBeginPoså¿…é¡»æ˜¯0
+		//Èç¹ûÊÇÈ«É¾³ı, nBeginPos±ØĞëÊÇ0
 		return false;
 	}
 	if (nCount)
@@ -277,11 +277,11 @@ inline void SBuffer::AutoFreeMem(bool bisAuto)
 
 inline bool SBuffer::AddBufferLen(unsigned int nAddLen)
 {
-	if (m_nDataLen + nAddLen > SBUFFER_MAX_SIZE) //è¶…è¿‡æœ€å¤§é™åˆ¶
+	if (m_nDataLen + nAddLen > SBUFFER_MAX_SIZE) //³¬¹ı×î´óÏŞÖÆ
 	{
 		return false;
 	}
-	else if (m_nDataLen + nAddLen <= m_nLen)     //å‰©ä½™çš„ç©ºé—´è¶³å¤Ÿ
+	else if (m_nDataLen + nAddLen <= m_nLen)     //Ê£ÓàµÄ¿Õ¼ä×ã¹»
 	{
 		return true;
 	}

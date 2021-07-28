@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//ç”¨æˆ·ä¿¡æ¯
+//ÓÃ»§ĞÅÏ¢
 //struct UserInfo
 class UserInfo
 {
@@ -22,7 +22,7 @@ public:
 typedef std::vector<UserInfo*> listpUserInfo;
 
 
-//åŸå¸‚ä¿¡æ¯
+//³ÇÊĞĞÅÏ¢
 //struct CityInfo
 class CityInfo
 {
@@ -38,14 +38,14 @@ public:
 	}
 	int            nCityID;
 	string         strCityName;
-	listpUserInfo  listpUser;    //ç”¨æˆ·åˆ—è¡¨
+	listpUserInfo  listpUser;    //ÓÃ»§ÁĞ±í
 
 	DEFINE_PUSHMSG(CityInfo, i.nCityID << i.strCityName << i.listpUser);
 	DEFINE_POPMSG(CityInfo, i.nCityID >> i.strCityName >> i.listpUser);
 };
 typedef std::vector<CityInfo*> listpCityInfo;
 
-//ç™»å½•æ¶ˆæ¯è¿”å›
+//µÇÂ¼ÏûÏ¢·µ»Ø
 //struct LoginRsp
 class LoginRsp
 {
@@ -61,22 +61,22 @@ public:
 	}
 	int            nErrorNo;
 	string         strError;
-	SBuffer        m_FileData;//äºŒè¿›åˆ¶æ•°æ®
-	listpCityInfo  listpCity; //åŸå¸‚åˆ—è¡¨
+	SBuffer        m_FileData;//¶ş½øÖÆÊı¾İ
+	listpCityInfo  listpCity; //³ÇÊĞÁĞ±í
 
 	DEFINE_PUSHMSG(LoginRsp, i.nErrorNo << i.strError << i.m_FileData << i.listpCity);
 	DEFINE_POPMSG(LoginRsp, i.nErrorNo >> i.strError >> i.m_FileData >> i.listpCity);
 };
 
 
-//è§†é¢‘æ•°æ®åŒ…
+//ÊÓÆµÊı¾İ°ü
 //struct LoginRsp
 class VideoPack
 {
 public:
-	int      m_nSeqNumber = 0;  //åºåˆ—å·
-	bool     m_bIsFrameKey = false; //æ˜¯å¦ä¸ºå…³é”®å¸§
-	SBuffer  m_Data;                //æ•°æ®åŒ…
+	int      m_nSeqNumber = 0;  //ĞòÁĞºÅ
+	bool     m_bIsFrameKey = false; //ÊÇ·ñÎª¹Ø¼üÖ¡
+	SBuffer  m_Data;                //Êı¾İ°ü
 
 	DEFINE_PUSHMSG(VideoPack, i.m_nSeqNumber << i.m_bIsFrameKey << i.m_Data);
 	DEFINE_POPMSG(VideoPack, i.m_nSeqNumber >> i.m_bIsFrameKey >> i.m_Data);
@@ -84,7 +84,7 @@ public:
 };
 DEFINE_MAP(int, mappVideoPack, VideoPack)
 
-//è§†é¢‘æ–‡ä»¶
+//ÊÓÆµÎÄ¼ş
 class VideoMediaFile
 {
 public:
@@ -92,7 +92,7 @@ public:
 	int  m_nHeight = 0;
 	int  m_nCodeID = 0;
 
-	mappVideoPack  m_mappData;  //æ•°æ®åˆ—è¡¨
+	mappVideoPack  m_mappData;  //Êı¾İÁĞ±í
 
 	DEFINE_PUSHMSG(VideoMediaFile, i.m_nWidth << i.m_nHeight << i.m_nCodeID << i.m_mappData);
 	DEFINE_POPMSG(VideoMediaFile, i.m_nWidth >> i.m_nHeight >> i.m_nCodeID >> i.m_mappData);

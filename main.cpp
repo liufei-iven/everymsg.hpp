@@ -8,15 +8,15 @@ bool initdata(LoginRsp* _out_pLoginRsp)
 
     CityInfo* pCity1 = new CityInfo();
     pCity1->nCityID = 1;
-    pCity1->strCityName = "æ·±åœ³";
+    pCity1->strCityName = "ÉîÛÚ";
     _out_pLoginRsp->listpCity.push_back(pCity1);
 
     CityInfo* pCity2 = new CityInfo();
     pCity2->nCityID = 2;
-    pCity2->strCityName = "æ­å·";
+    pCity2->strCityName = "º¼Öİ";
     _out_pLoginRsp->listpCity.push_back(pCity2);
     
-    string strUName[6] = { "é©¬åŒ–è…¾", "æå¼€å¤", "éƒ­æ³°é“­", "é©¬äº‘", "è®¸ä»™", "ç™½å¨˜å­" };
+    string strUName[6] = { "Âí»¯ÌÚ", "Àî¿ª¸´", "¹ùÌ©Ãú", "ÂíÔÆ", "ĞíÏÉ", "°×Äï×Ó" };
     int nUserID[6] = { 100, 101, 102, 200, 201, 202 };
 
     for (int i = 0; i < (sizeof(nUserID) / sizeof(int)); i++)
@@ -43,29 +43,29 @@ void example1()
 	char* pBuf = new char[1024];
 	int   nLen = 1024;
 
-    //åºåˆ—åŒ–;å°†ç»“æ„åŒ–æ•°æ®ä¸²è¡ŒåŒ–(å¾—åˆ°äºŒè¿›åˆ¶æ•°æ®pBuf)
+    //ĞòÁĞ»¯;½«½á¹¹»¯Êı¾İ´®ĞĞ»¯(µÃµ½¶ş½øÖÆÊı¾İpBuf)
     {
         int nIn = 11;
         string strIn("abc123456");
 
 		EveryMsg Msg;
-		Msg.ClearData(999);//è®¾ç½®æ¶ˆæ¯ç±»å‹
-		Msg << nIn;  //åºåˆ—åŒ–
+		Msg.ClearData(999);//ÉèÖÃÏûÏ¢ÀàĞÍ
+		Msg << nIn;  //ĞòÁĞ»¯
 		Msg << strIn;
 
 		nLen = Msg.GetDataLen();
 		memcpy(pBuf, Msg.GetData(), Msg.GetDataLen());
     }
 
-    //ååºåˆ—åŒ–;é€šè¿‡äºŒè¿›åˆ¶æ•°æ®pBuf, å¾—åˆ°ç»“æ„åŒ–æ•°æ®
+    //·´ĞòÁĞ»¯;Í¨¹ı¶ş½øÖÆÊı¾İpBuf, µÃµ½½á¹¹»¯Êı¾İ
     {
         int nOut = 0;
         string strOut;
 
 		EveryMsg Msg;
 		Msg.LoadData(pBuf, nLen);
-		int nMsgID = Msg.GetHead()->m_nMsgID; //è·å–æ¶ˆæ¯ç±»å‹
-		Msg >> nOut;  //ååºåˆ—åŒ–
+		int nMsgID = Msg.GetHead()->m_nMsgID; //»ñÈ¡ÏûÏ¢ÀàĞÍ
+		Msg >> nOut;  //·´ĞòÁĞ»¯
 		Msg >> strOut;
     }
 	delete pBuf;
@@ -76,27 +76,27 @@ void example2()
 	char* pBuf = new char[1024];
     int   nLen = 1024;
 
-    //åºåˆ—åŒ–;å°†ç»“æ„åŒ–æ•°æ®ä¸²è¡ŒåŒ–(å¾—åˆ°äºŒè¿›åˆ¶æ•°æ®pBuf)
+    //ĞòÁĞ»¯;½«½á¹¹»¯Êı¾İ´®ĞĞ»¯(µÃµ½¶ş½øÖÆÊı¾İpBuf)
     {
-		LoginRsp LoginRspIn;  //è¾“å…¥æ¶ˆæ¯ç»“æ„
+		LoginRsp LoginRspIn;  //ÊäÈëÏûÏ¢½á¹¹
 		initdata(&LoginRspIn);
 
 		EveryMsg Msg;
-		Msg.ClearData(888);//è®¾ç½®æ¶ˆæ¯ç±»å‹
-		Msg << LoginRspIn;  //åºåˆ—åŒ–
+		Msg.ClearData(888);//ÉèÖÃÏûÏ¢ÀàĞÍ
+		Msg << LoginRspIn;  //ĞòÁĞ»¯
         
 		nLen = Msg.GetDataLen();
 		memcpy(pBuf, Msg.GetData(), Msg.GetDataLen());
     }
 	
-	//ååºåˆ—åŒ–;é€šè¿‡äºŒè¿›åˆ¶æ•°æ®pBuf, å¾—åˆ°ç»“æ„åŒ–æ•°æ®
+	//·´ĞòÁĞ»¯;Í¨¹ı¶ş½øÖÆÊı¾İpBuf, µÃµ½½á¹¹»¯Êı¾İ
     {
 		EveryMsg Msg;
 		Msg.LoadData(pBuf, nLen);
-		int nMsgID = Msg.GetHead()->m_nMsgID; //è·å–æ¶ˆæ¯ç±»å‹
+		int nMsgID = Msg.GetHead()->m_nMsgID; //»ñÈ¡ÏûÏ¢ÀàĞÍ
 
-        LoginRsp loginRspOut; //è¾“å‡ºæ¶ˆæ¯ç»“æ„		
-		Msg >> loginRspOut; //ååºåˆ—åŒ–
+        LoginRsp loginRspOut; //Êä³öÏûÏ¢½á¹¹		
+		Msg >> loginRspOut; //·´ĞòÁĞ»¯
     }
 	delete pBuf;
 }
@@ -106,9 +106,9 @@ void example3()
 	char* pBuf = new char[1024];
 	int   nLen = 1024;
 
-	//åºåˆ—åŒ–;å°†ç»“æ„åŒ–æ•°æ®ä¸²è¡ŒåŒ–(å¾—åˆ°äºŒè¿›åˆ¶æ•°æ®pBuf)
+	//ĞòÁĞ»¯;½«½á¹¹»¯Êı¾İ´®ĞĞ»¯(µÃµ½¶ş½øÖÆÊı¾İpBuf)
 	{
-		VideoMediaFile VideFile;  //è¾“å…¥æ¶ˆæ¯ç»“æ„
+		VideoMediaFile VideFile;  //ÊäÈëÏûÏ¢½á¹¹
 		VideFile.m_nWidth = 1920;
 		VideFile.m_nHeight = 1080;
 		VideFile.m_nCodeID = 1;
@@ -122,21 +122,21 @@ void example3()
 		}
 		
 		EveryMsg Msg;
-		Msg.ClearData(888);//è®¾ç½®æ¶ˆæ¯ç±»å‹
-		Msg << VideFile;  //åºåˆ—åŒ–
+		Msg.ClearData(888);//ÉèÖÃÏûÏ¢ÀàĞÍ
+		Msg << VideFile;  //ĞòÁĞ»¯
 
 		nLen = Msg.GetDataLen();
 		memcpy(pBuf, Msg.GetData(), Msg.GetDataLen());
 	}
 
-	//ååºåˆ—åŒ–;é€šè¿‡äºŒè¿›åˆ¶æ•°æ®pBuf, å¾—åˆ°ç»“æ„åŒ–æ•°æ®
+	//·´ĞòÁĞ»¯;Í¨¹ı¶ş½øÖÆÊı¾İpBuf, µÃµ½½á¹¹»¯Êı¾İ
 	{
 		EveryMsg Msg;
 		Msg.LoadData(pBuf, nLen);
-		int nMsgID = Msg.GetHead()->m_nMsgID; //è·å–æ¶ˆæ¯ç±»å‹
+		int nMsgID = Msg.GetHead()->m_nMsgID; //»ñÈ¡ÏûÏ¢ÀàĞÍ
 
-		VideoMediaFile VideFile; //è¾“å‡ºæ¶ˆæ¯ç»“æ„
-		Msg >> VideFile; //ååºåˆ—åŒ–
+		VideoMediaFile VideFile; //Êä³öÏûÏ¢½á¹¹
+		Msg >> VideFile; //·´ĞòÁĞ»¯
 	}
 	delete pBuf;
 }

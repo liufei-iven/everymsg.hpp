@@ -1,19 +1,19 @@
 /*****************************************************************************************************************************
-*   Copyright(c) 2016-2020  è‡ªç”±äºº -- åˆ˜é£                                                                                    *
+*   Copyright(c) 2016-2020  ×ÔÓÉÈË -- Áõ·É                                                                                   *
 *   All rights reserved.                                                                                                     *
 *                                                                                                                            *
-*  æ–‡  ä»¶: everymsg.hpp   create by liufei   2015.5.28                                                                       *
-*  åŠŸ  èƒ½: æ¶ˆæ¯ç»“æ„åºåˆ—åŒ–;                                                                                                    *
-*  è¯´  æ˜: å°†ç»“æ„å­˜æ•°æ®åºåˆ—åŒ–åˆ°ä¸€ä¸ªè¿ç»­çš„Bufç¼“å­˜åŒºä¸­;                                                                           *
-*  å¤‡  æ³¨: ç¦æ­¢ä½¿ç”¨long æˆ– unsigned longç±»å‹å‚ä¸æ¶ˆæ¯åºåˆ—åŒ–, è¯·ä½¿ç”¨int64ç±»å‹ä»£æ›¿;                                                 *
+*  ÎÄ  ¼ş: everymsg.hpp   create by liufei    2015.5.28                                                                      *
+*  ¹¦  ÄÜ: ÏûÏ¢½á¹¹ĞòÁĞ»¯;                                                                                                   *
+*  Ëµ  Ã÷: ½«½á¹¹´æÊı¾İĞòÁĞ»¯µ½Ò»¸öÁ¬ĞøµÄBuf»º´æÇøÖĞ;                                                                        *
+*  ±¸  ×¢: ½ûÖ¹Ê¹ÓÃlong »ò unsigned longÀàĞÍ²ÎÓëÏûÏ¢ĞòÁĞ»¯, ÇëÊ¹ÓÃint64ÀàĞÍ´úÌæ;                                             *
 *                                                                                                                            *
 ******************************************************************************************************************************/
 
 
 /********************************************************************************************************
 *                                                                                                       *
-*   æ³¨æ„ï¼šå®šä¹‰æ¶ˆæ¯æ•°æ®ç»“æ„æ—¶ï¼Œç¦æ­¢ä½¿ç”¨longæˆ–unsigned longç±»å‹çš„æ•°æ®æˆå‘˜ã€‚è¯·ä½¿ç”¨int64ä»£æ›¿ã€‚                    *
-*   ***** å› ä¸ºlongç±»å‹åœ¨linux64å¹³å°ä¸‹å ç”¨64ä¸ªå­—èŠ‚ï¼Œä½†ç›®å‰å·²çŸ¥çš„å…¶ä»–å¹³å°éƒ½æ˜¯32ä¸ªå­—èŠ‚ã€‚****                    *
+*   ×¢Òâ£º¶¨ÒåÏûÏ¢Êı¾İ½á¹¹Ê±£¬½ûÖ¹Ê¹ÓÃlong»òunsigned longÀàĞÍµÄÊı¾İ³ÉÔ±¡£ÇëÊ¹ÓÃint64´úÌæ¡£              *
+*   ***** ÒòÎªlongÀàĞÍÔÚlinux64Æ½Ì¨ÏÂÕ¼ÓÃ64¸ö×Ö½Ú£¬µ«Ä¿Ç°ÒÑÖªµÄÆäËûÆ½Ì¨¶¼ÊÇ32¸ö×Ö½Ú¡£****               *
 *                                                                                                       *
 *********************************************************************************************************/
 
@@ -29,14 +29,14 @@
 #include "sbuffer.hpp"
 
 #ifndef USE_TYPE_SAFETY
-#define USE_TYPE_SAFETY    //å¯ç”¨æ•°æ®ç±»å‹å®‰å…¨
+#define USE_TYPE_SAFETY    //ÆôÓÃÊı¾İÀàĞÍ°²È«
 #endif // !USE_TYPE_SAFETY
 
 
-#pragma pack(push,4)      //æŒ‡å®šå†…å­˜å¯¹é½ç³»æ•°
+#pragma pack(push,4)      //Ö¸¶¨ÄÚ´æ¶ÔÆëÏµÊı
 
 
-//æ¶ˆæ¯å¤´å‚æ•°å®šä¹‰
+//ÏûÏ¢Í·²ÎÊı¶¨Òå
 class MsgHead
 {
 public:
@@ -48,8 +48,8 @@ public:
 
 	inline ~MsgHead() {}
 
-	int  m_nMsgID;    //æ¶ˆæ¯ID
-	int  m_nModeID;   //æ¨¡å—ID
+	int  m_nMsgID;    //ÏûÏ¢ID
+	int  m_nModeID;   //Ä£¿éID
 };
 #pragma pack(pop)
 
@@ -59,46 +59,46 @@ class EveryMsg
 public:
 	inline virtual ~EveryMsg() {}
 
-	inline EveryMsg();//æ„é€ 
+	inline EveryMsg();//¹¹Ôì
 
-	inline EveryMsg(int nMsgID, int nModeID = 0);//æ„é€ 2
+	inline EveryMsg(int nMsgID, int nModeID = 0);//¹¹Ôì2
 
-	inline EveryMsg(const EveryMsg& tMsg);//æ‹·è´æ„é€ 
+	inline EveryMsg(const EveryMsg& tMsg);//¿½±´¹¹Ôì
 
-	inline EveryMsg(EveryMsg&& tMsg);//ç§»åŠ¨æ„é€ 
-					 //ç§»åŠ¨å°±æ„å‘³ç€ä¿®æ”¹,æ‰€ä»¥ä¸åŠ const
-					 //å½“å‘ç°æ˜¯å³å€¼æ—¶ï¼Œä¼šä¼˜å…ˆç»‘å®šç§»åŠ¨æ„é€ å‡½æ•°
+	inline EveryMsg(EveryMsg&& tMsg);//ÒÆ¶¯¹¹Ôì
+									 //ÒÆ¶¯¾ÍÒâÎ¶×ÅĞŞ¸Ä,ËùÒÔ²»¼Óconst
+									 //µ±·¢ÏÖÊÇÓÒÖµÊ±£¬»áÓÅÏÈ°ó¶¨ÒÆ¶¯¹¹Ôìº¯Êı
 
-	inline EveryMsg& operator = (const EveryMsg& tMsg);//æ‹·è´èµ‹å€¼
+	inline EveryMsg& operator = (const EveryMsg& tMsg);//¿½±´¸³Öµ
 
-	inline EveryMsg& operator = (EveryMsg&& tMsg);//ç§»åŠ¨èµ‹å€¼
+	inline EveryMsg& operator = (EveryMsg&& tMsg);//ÒÆ¶¯¸³Öµ
 
 
-	//è½½å…¥Msgæ•°æ®; æ•°æ®æºå¿…é¡»æ˜¯ä»å½“å‰ç±»çš„GetData(...)å’ŒGetDataLen()æ–¹æ³•ä¸­è·å–;
+	//ÔØÈëMsgÊı¾İ; Êı¾İÔ´±ØĞëÊÇ´Óµ±Ç°ÀàµÄGetData(...)ºÍGetDataLen()·½·¨ÖĞ»ñÈ¡;
 	inline bool LoadData(const char* pBuf, unsigned int nLen);
 
-	//è·å–æ¶ˆæ¯å¤´ä¿¡æ¯;
+	//»ñÈ¡ÏûÏ¢Í·ĞÅÏ¢;
 	inline MsgHead* GetHead()
 	{
 		return (MsgHead*)m_Buffer.GetBuf();
 	}
 
-	//è·å–åºåˆ—åŒ–å®Œæˆçš„æ•°æ®;  bIsCopy:æ•°æ®æ˜¯newè¿”å›;
+	//»ñÈ¡ĞòÁĞ»¯Íê³ÉµÄÊı¾İ;  bIsCopy:Êı¾İÊÇnew·µ»Ø;
 	inline char* GetData(bool bIsNew = false) const
 	{
 		return m_Buffer.GetData(0, bIsNew);
 	}
 
-	//è·å–åºåˆ—åŒ–å®Œæˆæ•°æ®çš„é•¿åº¦;
+	//»ñÈ¡ĞòÁĞ»¯Íê³ÉÊı¾İµÄ³¤¶È;
 	inline unsigned int GetDataLen() const
 	{
 		return m_Buffer.GetDataLen();
 	}
 
-	//æ¸…é™¤MSGæ•°æ®, åŒæ—¶é‡ç½®æ¶ˆæ¯å¤´;
+	//Çå³ıMSGÊı¾İ, Í¬Ê±ÖØÖÃÏûÏ¢Í·;
 	inline void ClearData(int nMsgID = 0, int nModeID = 0);
 
-	//è¾“å…¥æ•°æ®
+	//ÊäÈëÊı¾İ
 #define INPUT_DATA()                      \
     if (!m_Buffer.AppendData((char*)&value, sizeof(value))) \
     {                                     \
@@ -107,7 +107,7 @@ public:
     }                                     \
     return *this;
 
-	//è¾“å‡ºæ•°æ®
+	//Êä³öÊı¾İ
 #define OUTPUT_DATA(_TYPE)                 \
     if (m_Buffer.m_ParamEx.unNum + sizeof(_TYPE) > m_Buffer.GetDataLen()) \
     {                                      \
@@ -119,7 +119,7 @@ public:
     return *this;
 
 #ifdef USE_TYPE_SAFETY
-	//åºåˆ—åŒ–è¾“å…¥; ç©·ä¸¾åŸºæœ¬æ•°æ®ç±»å‹;
+	//ĞòÁĞ»¯ÊäÈë; Çî¾Ù»ù±¾Êı¾İÀàĞÍ;
 	inline EveryMsg& operator << (const bool& value) { INPUT_DATA() }
 
 	inline EveryMsg& operator << (const char& value) { INPUT_DATA() }
@@ -137,15 +137,15 @@ public:
 	inline EveryMsg& operator << (const float& value) { INPUT_DATA() }
 	inline EveryMsg& operator << (const double& value) { INPUT_DATA() }
 #else
-	//åºåˆ—åŒ–è¾“å…¥; ä½¿ç”¨æ¨¡æ¿æ³›å‹å¤„ç†
+	//ĞòÁĞ»¯ÊäÈë; Ê¹ÓÃÄ£°å·ºĞÍ´¦Àí
 	template<class T> inline EveryMsg& operator << (const T& value) { INPUT_DATA() }
 #endif // USE_TYPE_SAFETY
 
 
-	//std::stringä¸ªæ€§åŒ–è¾“å…¥;
+	//std::string¸öĞÔ»¯ÊäÈë;
 	inline EveryMsg& operator << (const std::string& value)
 	{
-		//+1 åŠ ä¸Šå­—ç¬¦ä¸²çš„æœ€åä¸€ä¸ª0
+		//+1 ¼ÓÉÏ×Ö·û´®µÄ×îºóÒ»¸ö0
 		if (!m_Buffer.AppendData((char*)value.c_str(), (unsigned int)value.length() + 1))
 		{
 			throw "EveryMsg In String Overload !!!";
@@ -154,7 +154,7 @@ public:
 		return *this;
 	}
 	
-	//åºåˆ—åŒ–SBufferè¾“å…¥; å¦‚æœéœ€è¦åºåˆ—åŒ–äºŒè¿›åˆ¶æ•°æ®æ¨èä½¿ç”¨SBufferç±»å‹;
+	//ĞòÁĞ»¯SBufferÊäÈë; Èç¹ûĞèÒªĞòÁĞ»¯¶ş½øÖÆÊı¾İÍÆ¼öÊ¹ÓÃSBufferÀàĞÍ;
 	inline EveryMsg& operator << (const SBuffer& value)
 	{
 		//*this << value.m_ParamEx;
@@ -168,7 +168,7 @@ public:
 		return *this;
 	}
 
-	//æ ‡å‡†stlå®¹å™¨è¾“å…¥
+	//±ê×¼stlÈİÆ÷ÊäÈë
 	template<typename T>
 	inline EveryMsg& operator << (const std::vector<T>& value);
 
@@ -189,7 +189,7 @@ public:
 
 
 #ifdef USE_TYPE_SAFETY
-	//åºåˆ—åŒ–è¾“å‡º;ç©·ä¸¾åŸºæœ¬æ•°æ®ç±»å‹;
+	//ĞòÁĞ»¯Êä³ö;Çî¾Ù»ù±¾Êı¾İÀàĞÍ;
 	inline EveryMsg& operator >> (bool& value) { OUTPUT_DATA(bool) }
 
 	inline EveryMsg& operator >> (char& value) { OUTPUT_DATA(char) }
@@ -208,11 +208,11 @@ public:
 	inline EveryMsg& operator >> (double& value) { OUTPUT_DATA(double) }
 
 #else
-	//åºåˆ—åŒ–è¾“å‡º; ä½¿ç”¨æ¨¡æ¿æ³›å‹å¤„ç†
+	//ĞòÁĞ»¯Êä³ö; Ê¹ÓÃÄ£°å·ºĞÍ´¦Àí
 	template<class T> inline EveryMsg& operator >> (T& value) { OUTPUT_DATA(T) }
 #endif //USE_TYPE_SAFETY
 
-	//std::stringä¸ªæ€§åŒ–è¾“å‡º;
+	//std::string¸öĞÔ»¯Êä³ö;
 	inline EveryMsg& operator >> (std::string& value)
 	{
 		if (m_Buffer.m_ParamEx.unNum >= m_Buffer.GetDataLen())
@@ -225,7 +225,7 @@ public:
 		return *this;
 	}
 
-	//åºåˆ—åŒ–SBufferè¾“å‡º; å¦‚æœéœ€è¦åºåˆ—åŒ–äºŒè¿›åˆ¶æ•°æ®æ¨èä½¿ç”¨SBufferç±»å‹;
+	//ĞòÁĞ»¯SBufferÊä³ö; Èç¹ûĞèÒªĞòÁĞ»¯¶ş½øÖÆÊı¾İÍÆ¼öÊ¹ÓÃSBufferÀàĞÍ;
 	inline EveryMsg& operator >> (SBuffer& value)
 	{
 		//*this >> value.m_ParamEx;
@@ -242,7 +242,7 @@ public:
 		return *this;
 	}
 
-	//æ ‡å‡†stlå®¹å™¨è¾“å‡º
+	//±ê×¼stlÈİÆ÷Êä³ö
 	template<typename T>
 	inline EveryMsg& operator >> (std::vector<T>& value);
 
@@ -269,11 +269,11 @@ public:
 		unsigned long unNum;
 	};
 
-	ParamEx   m_ParamEx;    //æ‰©å±•å‚æ•°
+	ParamEx   m_ParamEx;    //À©Õ¹²ÎÊı
 
 private:
-	//m_Buffer.m_ParamEx.unNum //è¾“å‡ºæ—¶å½“å‰æ•°æ®çš„ä½ç½®
-	SBuffer   m_Buffer; //æ•°æ®ç¼“å­˜(è¾“å…¥è¾“å‡º)
+	//m_Buffer.m_ParamEx.unNum //Êä³öÊ±µ±Ç°Êı¾İµÄÎ»ÖÃ
+	SBuffer   m_Buffer; //Êı¾İ»º´æ(ÊäÈëÊä³ö)
 };
 
 
@@ -529,7 +529,7 @@ inline EveryMsg& EveryMsg::operator >> (std::map<T1, T2*>& value)
 }
 
 
-//(*)å®šä¹‰EveryMsgè¾“å…¥å‹å…ƒå‡½æ•°; ç”¨äºåµŒå…¥æºç»“æ„å†…éƒ¨, å¼ºè¡Œå‘ç”Ÿå…³ç³»
+//(*)¶¨ÒåEveryMsgÊäÈëÓÑÔªº¯Êı; ÓÃÓÚÇ¶ÈëÔ´½á¹¹ÄÚ²¿, Ç¿ĞĞ·¢Éú¹ØÏµ
 #define DEFINE_PUSHMSG(classname, Input)        \
 friend EveryMsg& operator << (EveryMsg& p, const classname& i) \
 {                                               \
@@ -537,7 +537,7 @@ friend EveryMsg& operator << (EveryMsg& p, const classname& i) \
     return p;                                   \
 }
 
-//(*)å®šä¹‰EveryMsgè¾“å‡ºå‹å…ƒå‡½æ•°; ç”¨äºåµŒå…¥æºç»“æ„å†…éƒ¨, å¼ºè¡Œå‘ç”Ÿå…³ç³»
+//(*)¶¨ÒåEveryMsgÊä³öÓÑÔªº¯Êı; ÓÃÓÚÇ¶ÈëÔ´½á¹¹ÄÚ²¿, Ç¿ĞĞ·¢Éú¹ØÏµ
 #define DEFINE_POPMSG(classname, Output)        \
 friend EveryMsg& operator >> (EveryMsg& p,classname& i) \
 {                                               \
@@ -553,7 +553,7 @@ friend EveryMsg& operator >> (EveryMsg& p,classname& i) \
 
 
 
-//é‡å®šä¹‰mapç±»; ä½œä¸ºåºåˆ—åŒ–mapç±»å‹çš„æ•°æ®ç»“æ„
+//ÖØ¶¨ÒåmapÀà; ×÷ÎªĞòÁĞ»¯mapÀàĞÍµÄÊı¾İ½á¹¹
 #define DEFINE_MAP(type, classname, baseclass)  \
 class classname : public map<type, baseclass*>  \
 {                                               \
@@ -640,7 +640,7 @@ public:                                         \
     bool m_bClearMem;                           \
 };
 
-//é‡å®šä¹‰vectorç±»; ä½œä¸ºåºåˆ—åŒ–vectorç±»å‹çš„æ•°æ®ç»“æ„
+//ÖØ¶¨ÒåvectorÀà; ×÷ÎªĞòÁĞ»¯vectorÀàĞÍµÄÊı¾İ½á¹¹
 #define DEFINE_VECTOR(classname,baseclass)      \
 class classname : public vector<baseclass*>     \
 {                                               \
@@ -703,7 +703,7 @@ public:                                         \
 };    
 
 
-//é‡å®šä¹‰listç±»; ä½œä¸ºåºåˆ—åŒ–listç±»å‹çš„æ•°æ®ç»“æ„
+//ÖØ¶¨ÒålistÀà; ×÷ÎªĞòÁĞ»¯listÀàĞÍµÄÊı¾İ½á¹¹
 #define DEFINE_LIST(classname,baseclass)        \
 class classname : public list<baseclass*>       \
 {                                               \
