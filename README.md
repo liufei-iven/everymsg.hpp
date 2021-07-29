@@ -17,7 +17,7 @@
 
 
 # 实现思路：
-1. 数据结构序列化其实就是结构化的数据串行化的一个过程，反序列化就是将串行化后的数据还原为结构数据对象。
+1. 数据结构序列化其实就是结构化的数据串行化，以及将串行化后的数据还原为结构数据对象的一个过程。
 2. 从编程语言层面上讲数据只有两种，即整形和字符串。例如下图LoginRsp结构包含listCityInfo，然后CityInfo又包含listUserInfo，可以看出数据只有int和string，我们只需要把这些数据按照固定的顺序排列在一个连续的buffer里就可以实现序列化。
 
    ![image](https://user-images.githubusercontent.com/84183800/127149514-e73d3156-245d-4e9e-af11-dee455ecad1e.png)
