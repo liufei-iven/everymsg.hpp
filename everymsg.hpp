@@ -145,8 +145,10 @@ public:
 	//std::string个性化输入;
 	inline EveryMsg& operator << (const std::string& value)
 	{
-		//+1 加上字符串的最后一个0
-		if (!m_Buffer.AppendData((char*)value.c_str(), (unsigned int)value.length() + 1))
+		unsigned int nLen = value.length();
+		*this << nLen;
+		
+		if (!m_Buffer.AppendData((char*)value.c_str(), nLen))
 		{
 			throw "EveryMsg In String Overload !!!";
 			return *this;
@@ -215,19 +217,27 @@ public:
 	//std::string个性化输出;
 	inline EveryMsg& operator >> (std::string& value)
 	{
-		if (m_Buffer.m_ParamEx.unNum >= m_Buffer.GetDataLen())
+		value.clear();
+
+		unsigned int nLen = 0;
+		*this >> nLen;
+
+		if ((m_Buffer.m_ParamEx.unNum + nLen) > m_Buffer.GetDataLen())
 		{
 			throw "EveryMsg Out String Overload !!!";
 			return *this;
 		}
-		value = (m_Buffer.GetBuf() + m_Buffer.m_ParamEx.unNum);
-		m_Buffer.m_ParamEx.unNum += value.length() + 1;
+		value.append(m_Buffer.GetData(m_Buffer.m_ParamEx.unNum), nLen);
+
+		m_Buffer.m_ParamEx.unNum += nLen;
 		return *this;
 	}
 
 	//序列化SBuffer输出; 如果需要序列化二进制数据推荐使用SBuffer类型;
 	inline EveryMsg& operator >> (SBuffer& value)
 	{
+		value.ClearData();
+
 		//*this >> value.m_ParamEx;
 		unsigned int nLen = 0;
 		*this >> nLen;
@@ -237,7 +247,7 @@ public:
 			throw "EveryMsg Out SBuffer Overload !!!";
 			return *this;
 		}
-		value.ReSetData(m_Buffer.GetData(m_Buffer.m_ParamEx.unNum, false), nLen);
+		value.ReSetData(m_Buffer.GetData(m_Buffer.m_ParamEx.unNum), nLen);
 		m_Buffer.m_ParamEx.unNum += nLen;
 		return *this;
 	}
