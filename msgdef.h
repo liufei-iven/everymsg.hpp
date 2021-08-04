@@ -1,11 +1,11 @@
-
+ï»¿
 #pragma once
 
 #include "everymsg.hpp"
 
 using namespace std;
 
-//ÓÃ»§ĞÅÏ¢
+//ç”¨æˆ·ä¿¡æ¯
 //struct UserInfo
 class UserInfo
 {
@@ -22,7 +22,7 @@ public:
 typedef std::vector<UserInfo*> listpUserInfo;
 
 
-//³ÇÊĞĞÅÏ¢
+//åŸå¸‚ä¿¡æ¯
 //struct CityInfo
 class CityInfo
 {
@@ -38,14 +38,14 @@ public:
 	}
 	int            nCityID;
 	string         strCityName;
-	listpUserInfo  listpUser;    //ÓÃ»§ÁĞ±í
+	listpUserInfo  listpUser;    //ç”¨æˆ·åˆ—è¡¨
 
 	DEFINE_PUSHMSG(CityInfo, i.nCityID << i.strCityName << i.listpUser);
 	DEFINE_POPMSG(CityInfo, i.nCityID >> i.strCityName >> i.listpUser);
 };
 typedef std::vector<CityInfo*> listpCityInfo;
 
-//µÇÂ¼ÏûÏ¢·µ»Ø
+//ç™»å½•æ¶ˆæ¯è¿”å›
 //struct LoginRsp
 class LoginRsp
 {
@@ -61,22 +61,22 @@ public:
 	}
 	int            nErrorNo;
 	string         strError;
-	SBuffer        m_FileData;//¶ş½øÖÆÊı¾İ
-	listpCityInfo  listpCity; //³ÇÊĞÁĞ±í
+	SBuffer        m_FileData;//äºŒè¿›åˆ¶æ•°æ®
+	listpCityInfo  listpCity; //åŸå¸‚åˆ—è¡¨
 
 	DEFINE_PUSHMSG(LoginRsp, i.nErrorNo << i.strError << i.m_FileData << i.listpCity);
 	DEFINE_POPMSG(LoginRsp, i.nErrorNo >> i.strError >> i.m_FileData >> i.listpCity);
 };
 
 
-//ÊÓÆµÊı¾İ°ü
+//è§†é¢‘æ•°æ®åŒ…
 //struct LoginRsp
 class VideoPack
 {
 public:
-	int      m_nSeqNumber = 0;  //ĞòÁĞºÅ
-	bool     m_bIsFrameKey = false; //ÊÇ·ñÎª¹Ø¼üÖ¡
-	SBuffer  m_Data;                //Êı¾İ°ü
+	int      m_nSeqNumber = 0;  //åºåˆ—å·
+	bool     m_bIsFrameKey = false; //æ˜¯å¦ä¸ºå…³é”®å¸§
+	SBuffer  m_Data;                //æ•°æ®åŒ…
 
 	DEFINE_PUSHMSG(VideoPack, i.m_nSeqNumber << i.m_bIsFrameKey << i.m_Data);
 	DEFINE_POPMSG(VideoPack, i.m_nSeqNumber >> i.m_bIsFrameKey >> i.m_Data);
@@ -84,7 +84,7 @@ public:
 };
 DEFINE_MAP(int, mappVideoPack, VideoPack)
 
-//ÊÓÆµÎÄ¼ş
+//è§†é¢‘æ–‡ä»¶
 class VideoMediaFile
 {
 public:
@@ -92,7 +92,7 @@ public:
 	int  m_nHeight = 0;
 	int  m_nCodeID = 0;
 
-	mappVideoPack  m_mappData;  //Êı¾İÁĞ±í
+	mappVideoPack  m_mappData;  //æ•°æ®åˆ—è¡¨
 
 	DEFINE_PUSHMSG(VideoMediaFile, i.m_nWidth << i.m_nHeight << i.m_nCodeID << i.m_mappData);
 	DEFINE_POPMSG(VideoMediaFile, i.m_nWidth >> i.m_nHeight >> i.m_nCodeID >> i.m_mappData);

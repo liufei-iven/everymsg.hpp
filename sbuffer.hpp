@@ -1,71 +1,72 @@
-/*****************************************************************************************************************************
-*   Copyright(c) 2016-2020  ×ÔÓÉÈË -- Áõ·É                                                                                   *
+ï»¿/*****************************************************************************************************************************
+*   Copyright(c) 2016-2020  è‡ªç”±äºº -- åˆ˜é£                                                                                   *
 *   All rights reserved.                                                                                                     *
 *                                                                                                                            *
-*  ÎÄ  ¼ş: sbuffer.hpp   create by liufei    2015.5.20                                                                       *
-*  ¹¦  ÄÜ: ´ÏÃ÷µÄ»º³åÇø;                                                                                                     *
-*  Ëµ  Ã÷: ÎŞ;                                                                                                               *
-*  ±¸  ×¢: ÎŞ;                                                                                                               *
+*  æ–‡  ä»¶: sbuffer.hpp   create by liufei    2015.5.20                                                                       *
+*  åŠŸ  èƒ½: èªæ˜çš„ç¼“å†²åŒº;                                                                                                     *
+*  è¯´  æ˜: æ— ;                                                                                                               *
+*  å¤‡  æ³¨: æ— ;                                                                                                               *
 *                                                                                                                            *
 ******************************************************************************************************************************/
 
 #pragma once
 
 #include <iostream>
+#include <string.h>
 
-#define SBUFFER_DEF_SIZE  512           //Ä¬ÈÏ»º³åÇø´óĞ¡
-#define SBUFFER_MAX_SIZE  1024 * 1024 * 64  //×î´óÖ§³Ö64M
+#define SBUFFER_DEF_SIZE  512           //é»˜è®¤ç¼“å†²åŒºå¤§å°
+#define SBUFFER_MAX_SIZE  1024 * 1024 * 64  //æœ€å¤§æ”¯æŒ64M
 
 
 
 class SBuffer
 {
 public:
-	virtual inline ~SBuffer();//Îö¹¹
+	virtual inline ~SBuffer();//ææ„
 
-	inline SBuffer(unsigned int nLen = 0);//¹¹Ôì
+	inline SBuffer(unsigned int nLen = 0);//æ„é€ 
 
-	inline SBuffer(const SBuffer& tBuffer);//¿½±´¹¹Ôì
+	inline SBuffer(const SBuffer& tBuffer);//æ‹·è´æ„é€ 
 
-	inline SBuffer(SBuffer&& tBuffer);//ÒÆ¶¯¹¹Ôì
-									  //ÒÆ¶¯¾ÍÒâÎ¶×ÅĞŞ¸Ä,ËùÒÔ²»¼Óconst
-									  //µ±·¢ÏÖÊÇÓÒÖµÊ±£¬»áÓÅÏÈ°ó¶¨ÒÆ¶¯¹¹Ôìº¯Êı
+	inline SBuffer(SBuffer&& tBuffer);//ç§»åŠ¨æ„é€ 
+									  //ç§»åŠ¨å°±æ„å‘³ç€ä¿®æ”¹,æ‰€ä»¥ä¸åŠ const
+									  //å½“å‘ç°æ˜¯å³å€¼æ—¶ï¼Œä¼šä¼˜å…ˆç»‘å®šç§»åŠ¨æ„é€ å‡½æ•°
 
-	inline SBuffer& operator = (const SBuffer& tBuffer);//¿½±´¸³Öµ
+	inline SBuffer& operator = (const SBuffer& tBuffer);//æ‹·è´èµ‹å€¼
 
-	inline SBuffer& operator = (SBuffer&& tBuffer);//ÒÆ¶¯¸³Öµ
+	inline SBuffer& operator = (SBuffer&& tBuffer);//ç§»åŠ¨èµ‹å€¼
 
-												   //ÖØÖÃÊı¾İ
+												   //é‡ç½®æ•°æ®
 	inline bool ReSetData(const char* pData, unsigned int nLen);
 
-	//×·¼ÓÊı¾İ; µ±pDataÎªNULLÊ±Êı¾İµÄ³¤¶ÈÒÀÈ»»áµİÔö
+	//è¿½åŠ æ•°æ®; å½“pDataä¸ºNULLæ—¶æ•°æ®çš„é•¿åº¦ä¾ç„¶ä¼šé€’å¢
 	inline bool AppendData(const char* pData, unsigned int nLen);
 
-	//É¾³ıÊı¾İ;
+	//åˆ é™¤æ•°æ®;
 	inline bool EraseData(unsigned int nBeginPos, unsigned int nCount);
 
-	//Ôö¼ÓBufferµÄ³¤¶È; Èç¹ûÒÑÓĞÊı¾İ,Êı¾İ²»»á¶ªÊ§
+	//å¢åŠ Bufferçš„é•¿åº¦; å¦‚æœå·²æœ‰æ•°æ®,æ•°æ®ä¸ä¼šä¸¢å¤±
 	inline bool AddBufferLen(unsigned int nAddLen = 128);
 
-	//»ñÈ¡Êı¾İ; nBeginPos: Êı¾İµÄ¿ªÊ¼Î»ÖÃ; bIsCopy:ÊÇ·ñnew·µ»Ø
+	//è·å–æ•°æ®; nBeginPos: æ•°æ®çš„å¼€å§‹ä½ç½®; bIsCopy:æ˜¯å¦newè¿”å›
 	inline char* GetData(unsigned int nBeginPos = 0, bool bIsNew = false) const;
 
-	//»ñÈ¡Êı¾İ³¤¶È
+	//è·å–æ•°æ®é•¿åº¦
 	inline unsigned int GetDataLen() const { return m_nDataLen; }
 
-	//»ñÈ¡Buf; nBeginPos: BufµÄ¿ªÊ¼Î»ÖÃ
+	//è·å–Buf; nBeginPos: Bufçš„å¼€å§‹ä½ç½®
 	inline char* GetBuf(unsigned int nBeginPos = 0) const { return m_pBuf + nBeginPos; }
 
-	//»ñÈ¡Buf³¤¶È
+	//è·å–Bufé•¿åº¦
 	inline unsigned int GetBufLen() const { return m_nLen; }
 
-	//Çå³ıÊı¾İ
+	//æ¸…é™¤æ•°æ®
 	inline void ClearData() { SetDataLen(); }
 
-	//ÉèÖÃÊı¾İ³¤¶È, Ä¬ÈÏÇå³ıÊı¾İ
+	//è®¾ç½®æ•°æ®é•¿åº¦, é»˜è®¤æ¸…é™¤æ•°æ®
 	inline void SetDataLen(unsigned int nLen = 0);
 
-	//ÊÇ·ñ×Ô¶¯ÊÍ·ÅÄÚ´æ
+	//æ˜¯å¦è‡ªåŠ¨é‡Šæ”¾å†…å­˜
 	inline void AutoFreeMem(bool bisAuto);
 
 	union ParamEx
@@ -75,15 +76,15 @@ public:
 		unsigned long unNum;
 	};
 
-	ParamEx         m_ParamEx;    //À©Õ¹²ÎÊı
+	ParamEx         m_ParamEx;    //æ‰©å±•å‚æ•°
 
 protected:
 
 private:
-	char*           m_pBuf;       //»º³åÇø;
-	unsigned int    m_nLen;       //»º³åÇø³¤¶È;
-	unsigned int    m_nDataLen;   //Êı¾İ³¤¶È;
-	bool            m_bIsFree;    //ÊÇ·ñÊÍ·ÅÄÚ´æ;
+	char*           m_pBuf;       //ç¼“å†²åŒº;
+	unsigned int    m_nLen;       //ç¼“å†²åŒºé•¿åº¦;
+	unsigned int    m_nDataLen;   //æ•°æ®é•¿åº¦;
+	bool            m_bIsFree;    //æ˜¯å¦é‡Šæ”¾å†…å­˜;
 };
 
 inline SBuffer::SBuffer(unsigned int nLen)
@@ -180,11 +181,11 @@ inline bool SBuffer::ReSetData(const char* pData, unsigned int nLen)
 	{
 		return false;
 	}
-	//ÖØÖÃÔ­ÏÈÊı¾İ³¤¶È
+	//é‡ç½®åŸå…ˆæ•°æ®é•¿åº¦
 	m_nDataLen = 0;
 
-	//±£Ö¤Buf³¤¶È×ã¹»
-	AddBufferLen(nLen); //Ôö¼ÓBuffer¶¨»á³É¹¦
+	//ä¿è¯Bufé•¿åº¦è¶³å¤Ÿ
+	AddBufferLen(nLen); //å¢åŠ Bufferå®šä¼šæˆåŠŸ
 	memcpy(m_pBuf, pData, nLen);
 
 	m_nDataLen = nLen;
@@ -209,19 +210,19 @@ inline bool SBuffer::EraseData(unsigned int nBeginPos, unsigned int nCount)
 {
 	if (m_nDataLen <= 0)
 	{
-		//Ã»ÓĞÊı¾İ
+		//æ²¡æœ‰æ•°æ®
 		return false;
 	}
 
 	if (nBeginPos >= m_nDataLen || nCount > m_nDataLen)
 	{
-		//×ø±ê»òÕß³¤¶ÈÔ½½ç
+		//åæ ‡æˆ–è€…é•¿åº¦è¶Šç•Œ
 		return false;
 	}
 
 	if (nBeginPos > 0 && nBeginPos + nCount >= m_nDataLen)
 	{
-		//Èç¹ûÊÇÈ«É¾³ı, nBeginPos±ØĞëÊÇ0
+		//å¦‚æœæ˜¯å…¨åˆ é™¤, nBeginPoså¿…é¡»æ˜¯0
 		return false;
 	}
 	if (nCount)
@@ -277,11 +278,11 @@ inline void SBuffer::AutoFreeMem(bool bisAuto)
 
 inline bool SBuffer::AddBufferLen(unsigned int nAddLen)
 {
-	if (m_nDataLen + nAddLen > SBUFFER_MAX_SIZE) //³¬¹ı×î´óÏŞÖÆ
+	if (m_nDataLen + nAddLen > SBUFFER_MAX_SIZE) //è¶…è¿‡æœ€å¤§é™åˆ¶
 	{
 		return false;
 	}
-	else if (m_nDataLen + nAddLen <= m_nLen)     //Ê£ÓàµÄ¿Õ¼ä×ã¹»
+	else if (m_nDataLen + nAddLen <= m_nLen)     //å‰©ä½™çš„ç©ºé—´è¶³å¤Ÿ
 	{
 		return true;
 	}
