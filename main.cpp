@@ -1,19 +1,21 @@
 ﻿#include "msgdef.h"
 
-bool initdata(LoginRsp* _out_pLoginRsp)
+void initdata(LoginRsp* _out_pLoginRsp)
 {
-    bool bRet = false;
-    _out_pLoginRsp->nErrorNo = 0;
+	_out_pLoginRsp->nErrorNo = 0;
     _out_pLoginRsp->strError = "OK";
+
+	string strData = "this is binary data ?";
+	_out_pLoginRsp->FileData.AppendData(strData.c_str(), strData.length() + 1);
 
     CityInfo* pCity1 = new CityInfo();
     pCity1->nCityID = 1;
-    pCity1->strCityName = "深圳";
+    *pCity1->pstrCityName = "深圳";
     _out_pLoginRsp->listpCity.push_back(pCity1);
 
     CityInfo* pCity2 = new CityInfo();
     pCity2->nCityID = 2;
-    pCity2->strCityName = "杭州";
+    *pCity2->pstrCityName = "杭州";
     _out_pLoginRsp->listpCity.push_back(pCity2);
     
     string strUName[6] = { "马化腾", "李开复", "郭泰铭", "马云", "许仙", "白娘子" };
@@ -35,7 +37,21 @@ bool initdata(LoginRsp* _out_pLoginRsp)
             pCity2->listpUser.push_back(pUser);
         }
     }
-    return bRet;
+}
+
+void initdata(VideoMediaFile* _out_pVideFile)
+{
+	_out_pVideFile->m_nWidth = 1920;
+	_out_pVideFile->m_nHeight = 1080;
+	_out_pVideFile->m_nCodeID = 1;
+
+	for (int i = 0; i < 10; i++)
+	{
+		VideoPack* pPack = new VideoPack();
+		pPack->m_nSeqNumber = i;
+		pPack->m_Data.AppendData("abcdefg", 8);
+		_out_pVideFile->m_mappData.Add(pPack->m_nSeqNumber, pPack);
+	}
 }
 
 void example1()
@@ -109,17 +125,7 @@ void example3()
 	//序列化;将结构化数据串行化(得到二进制数据pBuf)
 	{
 		VideoMediaFile VideFile;  //输入消息结构
-		VideFile.m_nWidth = 1920;
-		VideFile.m_nHeight = 1080;
-		VideFile.m_nCodeID = 1;
-
-		for (int i = 0; i < 10; i++)
-		{
-			VideoPack* pPack = new VideoPack();
-			pPack->m_nSeqNumber = i;
-			pPack->m_Data.AppendData("abcdefg", 8);
-			VideFile.m_mappData.Add(pPack->m_nSeqNumber, pPack);
-		}
+		initdata(&VideFile);
 		
 		EveryMsg Msg;
 		Msg.ClearData(888);//设置消息类型

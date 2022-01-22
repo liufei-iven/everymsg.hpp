@@ -27,7 +27,7 @@ typedef std::vector<UserInfo*> listpUserInfo;
 class CityInfo
 {
 public:
-	CityInfo() { nCityID = 0; }
+	CityInfo() { nCityID = 0; pstrCityName = new string(); }
 	~CityInfo()
 	{
 		for (auto& item : listpUser)
@@ -35,22 +35,39 @@ public:
 			delete item;
 		}
 		listpUser.clear();
+		delete pstrCityName;
 	}
 	int            nCityID;
-	string         strCityName;
+	string*        pstrCityName; //城市名称（指针也可以）
 	listpUserInfo  listpUser;    //用户列表
 
-	DEFINE_PUSHMSG(CityInfo, i.nCityID << i.strCityName << i.listpUser);
-	DEFINE_POPMSG(CityInfo, i.nCityID >> i.strCityName >> i.listpUser);
+	DEFINE_PUSHMSG(CityInfo, i.nCityID << *i.pstrCityName << i.listpUser);
+	DEFINE_POPMSG(CityInfo, i.nCityID >> *i.pstrCityName >> i.listpUser);
 };
 typedef std::vector<CityInfo*> listpCityInfo;
 
-//登录消息返回
-//struct LoginRsp
-class LoginRsp
+
+//返回消息基类
+//struct RspBase
+class RspBase
 {
 public:
-	LoginRsp() { nErrorNo = 0; }
+	RspBase() { nErrorNo = 0; }
+	virtual ~RspBase(){}
+
+	int            nErrorNo;  //错误码
+	string         strError;  //错误说明
+
+	DEFINE_PUSHMSG(RspBase, i.nErrorNo << i.strError);
+	DEFINE_POPMSG(RspBase, i.nErrorNo >> i.strError);
+};
+
+//登录消息返回
+//struct LoginRsp
+class LoginRsp : public RspBase
+{
+public:
+	LoginRsp() {}
 	~LoginRsp()
 	{
 		for (auto& item : listpCity)
@@ -59,13 +76,11 @@ public:
 		}
 		listpCity.clear();
 	}
-	int            nErrorNo;
-	string         strError;
-	SBuffer        m_FileData;//二进制数据
+	SBuffer        FileData;  //二进制数据
 	listpCityInfo  listpCity; //城市列表
 
-	DEFINE_PUSHMSG(LoginRsp, i.nErrorNo << i.strError << i.m_FileData << i.listpCity);
-	DEFINE_POPMSG(LoginRsp, i.nErrorNo >> i.strError >> i.m_FileData >> i.listpCity);
+	DEFINE_PUSHMSG(LoginRsp, *(RspBase*)&i << i.FileData << i.listpCity);
+	DEFINE_POPMSG(LoginRsp, *(RspBase*)&i >> i.FileData >> i.listpCity);
 };
 
 
