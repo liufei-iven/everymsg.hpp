@@ -29,14 +29,14 @@ public:
 	inline SBuffer(const SBuffer& tBuffer);//拷贝构造
 
 	inline SBuffer(SBuffer&& tBuffer);//移动构造
-									  //移动就意味着修改,所以不加const
-									  //当发现是右值时，会优先绑定移动构造函数
+					  //移动就意味着修改,所以不加const
+					  //当发现是右值时，会优先绑定移动构造函数
 
 	inline SBuffer& operator = (const SBuffer& tBuffer);//拷贝赋值
 
 	inline SBuffer& operator = (SBuffer&& tBuffer);//移动赋值
 
-												   //重置数据
+	//重置数据
 	inline bool ReSetData(const char* pData, unsigned int nLen);
 
 	//追加数据; 当pData为NULL时数据的长度依然会递增
