@@ -24,6 +24,7 @@
    sbuffer.hpp 一个智能的缓冲区处理，封装对内存数据的操作。
    
    everymsg.hpp 定义了序列化的框架规则以及标准stl容器的适配。
+   
    ![image](https://user-images.githubusercontent.com/84183800/127149514-e73d3156-245d-4e9e-af11-dee455ecad1e.png)
    
    
