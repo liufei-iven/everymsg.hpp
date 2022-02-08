@@ -18,15 +18,14 @@
 
 # 实现思路：
 1. 数据结构序列化其实就是结构化的数据串行化，以及将串行化后的数据还原为结构数据对象的一个过程。
-2. 从编程语言层面上讲数据只有两种，即整形和字符串。例如下图LoginRsp结构包含listCityInfo，然后CityInfo又包含listUserInfo，可以看出数据只有int和string，我们只需要把这些数据按照固定的顺序排列在一个连续的buffer里就可以实现序列化。
-
-   ![image](https://user-images.githubusercontent.com/84183800/127149514-e73d3156-245d-4e9e-af11-dee455ecad1e.png)
-   
+2. 从编程语言层面上讲数据只有两种，即整形和字符串。例如下图LoginRsp结构包含listCityInfo，然后CityInfo又包含listUserInfo，可以看出数据只有int和string，我们只需要把这些数据按照固定的顺序排列在一个连续的buffer里就可以实现序列化。   
 3. 如果我们针对每一种数据结构都去实现数据排列规则和算法那么程序代码量呈线形增长，既不优雅也很繁琐(google的protobuf工具就是用的这种方式)。但其实我们可以通过宏函数入侵的方式嵌入应用层，由应用层去指定排列顺序，同时通过友元和模板的机制实现排列数据的规则，并将其处理过程提炼出一个泛型的工具类完成序列化与反序列化框架。
    
    sbuffer.hpp 一个智能的缓冲区处理，封装对内存数据的操作。
    
    everymsg.hpp 定义了序列化的框架规则以及标准stl容器的适配。
+   ![image](https://user-images.githubusercontent.com/84183800/127149514-e73d3156-245d-4e9e-af11-dee455ecad1e.png)
+   
    
 # Demo
   Demo可以通过vs2015编译通过
