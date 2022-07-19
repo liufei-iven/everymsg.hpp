@@ -204,7 +204,7 @@ public:
 	inline EveryMsg& operator >> (unsigned int& value) { OUTPUT_DATA(unsigned int) }
 
 	inline EveryMsg& operator >> (long& value) { OUTPUT_DATA(int) }
-	inline EveryMsg& operator >> (unsigned long& value) { OUTPUT_DATA(unsigned int) }
+	inline EveryMsg& operator >> (unsigned long& value) { OUTPUT_DATA(unsigned long) }
 
 	inline EveryMsg& operator >> (float& value) { OUTPUT_DATA(float) }
 	inline EveryMsg& operator >> (double& value) { OUTPUT_DATA(double) }
