@@ -1,19 +1,19 @@
-﻿/*****************************************************************************************************************************
-*   Copyright(c) 2016-2020  自由人 -- 刘飞                                                                                    *
+/*****************************************************************************************************************************
+*   Copyright(c) 2016-2020  自由人 -- 刘飞                                                                                   *
 *   All rights reserved.                                                                                                     *
 *                                                                                                                            *
 *  文  件: everymsg.hpp   create by liufei    2015.5.28                                                                      *
-*  功  能: 消息结构序列化;                                                                                                    *
-*  说  明: 将结构存数据序列化到一个连续的Buf缓存区中;                                                                           *
-*  备  注: 禁止使用long 或 unsigned long类型参与消息序列化, 64位整型请使用int64类型代替;                                         *
+*  功  能: 消息结构序列化;                                                                                                   *
+*  说  明: 将结构存数据序列化到一个连续的Buf缓存区中;                                                                        *
+*  备  注: 禁止使用long 或 unsigned long类型参与消息序列化, 请使用int64 / long long类型代替;                                 *
 *                                                                                                                            *
 ******************************************************************************************************************************/
 
 
 /********************************************************************************************************
 *                                                                                                       *
-*   注意：定义消息数据结构时，禁止使用long或unsigned long类型的数据成员。请使用int64代替。                    *
-*   ***** 因为long类型在linux64平台下占用8个字节，但目前已知的其他平台都是4字节。****                        *
+*   注意：定义消息数据结构时，禁止使用long或unsigned long类型的数据成员。请使用int64 / long long代替。  *
+*   ***** 因为long类型在linux64平台下占用64个字节，但目前已知的其他平台都是32个字节。****               *
 *                                                                                                       *
 *********************************************************************************************************/
 
@@ -66,8 +66,8 @@ public:
 	inline EveryMsg(const EveryMsg& tMsg);//拷贝构造
 
 	inline EveryMsg(EveryMsg&& tMsg);//移动构造
-					 //移动就意味着修改,所以不加const
-					 //当发现是右值时，会优先绑定移动构造函数
+									 //移动就意味着修改,所以不加const
+									 //当发现是右值时，会优先绑定移动构造函数
 
 	inline EveryMsg& operator = (const EveryMsg& tMsg);//拷贝赋值
 
@@ -136,6 +136,9 @@ public:
 
 	inline EveryMsg& operator << (const float& value) { INPUT_DATA() }
 	inline EveryMsg& operator << (const double& value) { INPUT_DATA() }
+
+	inline EveryMsg& operator << (const long long& value) { INPUT_DATA() }
+	inline EveryMsg& operator << (const unsigned long long& value) { INPUT_DATA() }
 #else
 	//序列化输入; 使用模板泛型处理
 	template<class T> inline EveryMsg& operator << (const T& value) { INPUT_DATA() }
@@ -203,11 +206,14 @@ public:
 	inline EveryMsg& operator >> (int& value) { OUTPUT_DATA(int) }
 	inline EveryMsg& operator >> (unsigned int& value) { OUTPUT_DATA(unsigned int) }
 
-	inline EveryMsg& operator >> (long& value) { OUTPUT_DATA(long) }
-	inline EveryMsg& operator >> (unsigned long& value) { OUTPUT_DATA(unsigned long) }
+	inline EveryMsg& operator >> (long& value) { OUTPUT_DATA(int) }
+	inline EveryMsg& operator >> (unsigned long& value) { OUTPUT_DATA(unsigned int) }
 
 	inline EveryMsg& operator >> (float& value) { OUTPUT_DATA(float) }
 	inline EveryMsg& operator >> (double& value) { OUTPUT_DATA(double) }
+
+	inline EveryMsg& operator >> (long long& value) { OUTPUT_DATA(long long) }
+	inline EveryMsg& operator >> (unsigned long long& value) { OUTPUT_DATA(unsigned long long) }
 
 #else
 	//序列化输出; 使用模板泛型处理
